@@ -1,0 +1,30 @@
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        answers = []
+        n = len(nums)
+        de = deque()
+
+        # First window
+        for i in range(k):
+            while de and nums[de[-1]] < nums[i]:
+                de.pop()
+            de.append(i)
+
+        answers.append(nums[de[0]])
+
+        # Remaining windows
+        for j in range(k, n):
+            startingPoint = j - k + 1
+
+            # Remove indices outside the window
+            while de and de[0] < startingPoint:
+                de.popleft()
+
+            # Remove smaller elements
+            while de and nums[de[-1]] < nums[j]:
+                de.pop()
+
+            de.append(j)
+            answers.append(nums[de[0]])
+
+        return answers
