@@ -1,0 +1,7 @@
+class Solution:
+    def reverseDegree(self, s: str) -> int:
+        sum=0
+        for i,ch in enumerate(s,1):
+            reverse = 26 - (ord(ch)-ord('a'))
+            sum += reverse* i
+        return sum
